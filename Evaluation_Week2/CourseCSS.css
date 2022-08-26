@@ -51,5 +51,5 @@
 }
 
 .selected{
-    background-color: blue;
+    background-color: rgb(32, 136, 255) !important;
 }

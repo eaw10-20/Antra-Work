@@ -20,7 +20,7 @@ const View = (() => {
         `;
         courses.forEach((course) => {
             tmp += `
-                <li class="list-element course-element" onclick=">
+                <li class="list-element course-element", id="course-${course.courseId}">
                     ${course.courseName}<br>
                     Course type: ${course.required ? "Compulsitory" : "Elective"}<br>
                     Course Credit: ${course.credit}
@@ -78,17 +78,17 @@ const Controller = ((model, view) => {
         });
     };
 
-    // const selectCourse = () => {
-    //     const availContainer = document.querySelector(view.domstr.availContainer);
-    //     availContainer.addEventListener("click", event => {
-    //         eve = event.target.course-element;
-    //             eve.classList.contains("selected") ? eve.classList.add("selected") : eve.classList.remove("selected");
-    //     })
-    // }
+    const selectCourse = () => {
+        const availContainer = document.querySelector(view.domstr.availContainer);
+        availContainer.addEventListener("click", (event) => {
+            let eve = event.target;
+            eve.classList.contains("selected") ? eve.classList.remove("selected") : eve.classList.add("selected");
+        })
+    }
 
     const bootstrap = () => {
         init();
-        // selectCourse();
+        selectCourse();
     };
 
     return {
