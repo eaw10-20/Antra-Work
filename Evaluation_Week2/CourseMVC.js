@@ -4,7 +4,8 @@ import { Api } from "./CourseAPI.js";
 const View = (() => {
 
     const domstr = {
-        availContainer: "#available-container"
+        availContainer: "#available-container",
+        availCourse: ".course-element"
     };
 
     const render = (ele, tmp) => {
@@ -13,13 +14,13 @@ const View = (() => {
 
     const createCourseElm = (courses) => {
         let tmp = `
-        <lh class="list-element">
+        <li class="list-element list-header">
             Available Courses
-        </lh>
+        </li>
         `;
         courses.forEach((course) => {
             tmp += `
-                <li class="list-element">
+                <li class="list-element course-element" onclick=">
                     ${course.courseName}<br>
                     Course type: ${course.required ? "Compulsitory" : "Elective"}<br>
                     Course Credit: ${course.credit}
@@ -47,6 +48,12 @@ const Model = ((api, view) => {
             this.available = [...courses];
             
             const availContainer = document.querySelector(view.domstr.availContainer);
+
+
+            const addToAvail = (event) => {
+                event.target.classList.add("selected");
+            }
+
             const tmp = view.createCourseElm(this.available);
             view.render(availContainer, tmp);
         }
@@ -71,8 +78,17 @@ const Controller = ((model, view) => {
         });
     };
 
+    // const selectCourse = () => {
+    //     const availContainer = document.querySelector(view.domstr.availContainer);
+    //     availContainer.addEventListener("click", event => {
+    //         eve = event.target.course-element;
+    //             eve.classList.contains("selected") ? eve.classList.add("selected") : eve.classList.remove("selected");
+    //     })
+    // }
+
     const bootstrap = () => {
         init();
+        // selectCourse();
     };
 
     return {

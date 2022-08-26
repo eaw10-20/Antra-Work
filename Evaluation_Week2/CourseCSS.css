@@ -1,6 +1,8 @@
 :root{
     --container-height: 300px;
     --container-width: 200px;
+
+    --course-color-offset: rgb(221, 239, 221)
 }
 
 *{
@@ -31,10 +33,23 @@
 }
 
 .list-element{
+    text-align: center;
     border-bottom-style: solid;
+}
+
+.list-header{
+    font-weight: bold;
+}
+
+.course-element:nth-child(2n){
+    background-color: var(--course-color-offset);
 }
 
 #available-container{
     height: var(--container-height);
     overflow: auto;
+}
+
+.selected{
+    background-color: blue;
 }
