@@ -1,0 +1,40 @@
+:root{
+    --container-height: 300px;
+    --container-width: 200px;
+}
+
+*{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+.header{
+    display: flex;
+    justify-content: center;
+}
+
+.body{
+    display: flex;
+    justify-content: space-evenly;
+}
+
+.credit-select{
+    display: flex;
+    justify-content: center;
+}
+
+.course-container{
+    height: var(--container-height);
+    width: var(--container-width);
+    border-style: solid;
+}
+
+.list-element{
+    border-bottom-style: solid;
+}
+
+#available-container{
+    height: var(--container-height);
+    overflow: auto;
+}
