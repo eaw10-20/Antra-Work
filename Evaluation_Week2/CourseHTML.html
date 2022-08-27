@@ -16,21 +16,22 @@
         <div class="body">
             <div class="course-container">
                 <ul id="available-container">
-                    <li>
-                        <p class="list-element">Undefined Course\n
-                            Course type: Elective\n
-                            Course Credit: 0
-                        </p>
+                    <li class="list-element list-header">
+                        Available Courses
                     </li>
                 </ul>
             </div>
             <div class="course-container">
-                
+                <ul id="selected-container">
+                    <li class="list-element list-header">
+                        Selected Courses
+                    </li>
+                </ul>
             </div>
         </div>
         <div class="credit-select">
             <form action="#">
-                <label for="course-submit">Total Credits: 0</label>
+                <label for="course-submit" id="credit-count">Total Credits: -</label>
                 <input type="submit" id="course-submit" name="Select">
             </form>
         </div>

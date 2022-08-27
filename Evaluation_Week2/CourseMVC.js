@@ -30,8 +30,12 @@ const View = (() => {
         return tmp;
     };
 
+    const updateCreditElm = (credits) => {
+        return `Total Credits: ${credits}`
+    }
+
     return{
-        domstr, render, createCourseElm
+        domstr, render, createCourseElm, updateCreditElm
     };
 })();
 
@@ -59,10 +63,27 @@ const Model = ((api, view) => {
         }
     }
 
+    class CreditHandler{
+        constructor() {
+            this.credits = 0;
+            this.maxCredits = 18;
+        }
+
+        getCredits() {
+            return this.credits;
+        }
+
+        updateCredits(){
+            const creditContainer = document.getElementById("credit-count");
+            const tmp = view.updateCreditElm(this.credits);
+            view.render(creditContainer, tmp);
+        }
+    }
+
     const getCourses = api;
 
     return {
-        getCourses, AvailableList
+        getCourses, AvailableList, CreditHandler
     }
 })(Api, View);
 
@@ -71,10 +92,12 @@ const Model = ((api, view) => {
 const Controller = ((model, view) => {
 
     const availableList = new model.AvailableList();
+    const creditHandler = new model.CreditHandler();
 
     const init = () => {
         model.getCourses().then((available) => {
             availableList.setAvailable(available);
+            creditHandler.updateCredits();
         });
     };
 
@@ -82,6 +105,8 @@ const Controller = ((model, view) => {
         const availContainer = document.querySelector(view.domstr.availContainer);
         availContainer.addEventListener("click", (event) => {
             let eve = event.target;
+            let selectedId = eve.id.substring(7)
+            console.log(selectedId);
             eve.classList.contains("selected") ? eve.classList.remove("selected") : eve.classList.add("selected");
         })
     }
