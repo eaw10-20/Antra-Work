@@ -157,6 +157,7 @@ const Controller = ((model, view) => {
         selectButton.addEventListener("click", (event) => {
             if(confirm(`You have chosen ${creditHandler.getCredits()} credits for this semester. You cannot change once you submit. Do you want to confirm?`)){
                 availableList.moveSelected();
+                selectButton.disabled = true;
             };
         });
     }
