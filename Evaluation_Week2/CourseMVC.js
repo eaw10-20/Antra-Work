@@ -1,6 +1,9 @@
 import { Api } from "./CourseAPI.js";
 
-// View
+
+
+//-------------------- View --------------------//
+
 const View = (() => {
 
     const domstr = {
@@ -41,7 +44,10 @@ const View = (() => {
     };
 })();
 
-// Model
+
+
+//-------------------- Model --------------------//
+
 const Model = ((api, view) => {
     class AvailableList {
         available = [];
@@ -121,7 +127,9 @@ const Model = ((api, view) => {
     }
 })(Api, View);
 
-// Controller
+
+
+//-------------------- Controller --------------------//
 
 const Controller = ((model, view) => {
 
