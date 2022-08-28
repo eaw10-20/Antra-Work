@@ -14,10 +14,10 @@ const View = (() => {
         ele.innerHTML = tmp;
     };
 
-    const createCourseElm = (courses) => {
+    const createCourseElm = (courses, header) => {
         let tmp = `
         <li class="list-element list-header">
-            Available Courses
+            ${header}
         </li>
         `;
         courses.forEach((course) => {
@@ -61,7 +61,7 @@ const Model = ((api, view) => {
                 event.target.classList.add("selected");
             }
 
-            const tmp = view.createCourseElm(this.available);
+            const tmp = view.createCourseElm(this.available, "Available Courses");
             view.render(availContainer, tmp);
         }
 
@@ -76,7 +76,7 @@ const Model = ((api, view) => {
                 if(courseEle.classList.contains("selected")) this.selected.push(course);
                 else notSelected.push(course);
                 }
-            const tmp = view.createCourseElm(this.selected);
+            const tmp = view.createCourseElm(this.selected, "Selected Courses");
             view.render(selectedContainer, tmp);
 
             this.setAvailable(notSelected);

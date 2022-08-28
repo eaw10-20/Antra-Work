@@ -14,6 +14,8 @@
 .header{
     display: flex;
     justify-content: center;
+    margin-top: 4%;
+    margin-bottom: 3%;
 }
 
 .body{
@@ -24,10 +26,11 @@
 .credit-select{
     display: flex;
     justify-content: center;
+    margin-top: 3%;
 }
 
 .course-container{
-    height: var(--container-height);
+    height: var(--container-height) - 10px;
     width: var(--container-width);
     border-style: solid;
 }
@@ -45,7 +48,7 @@
     background-color: var(--course-color-offset);
 }
 
-#available-container{
+.list{
     height: var(--container-height);
     overflow: auto;
 }
