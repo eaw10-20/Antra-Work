@@ -78,6 +78,20 @@ const Model = ((api, view) => {
             const tmp = view.updateCreditElm(this.credits);
             view.render(creditContainer, tmp);
         }
+
+        modifyCreditCount(id, list, selected) {
+
+            const course = list.available.find(element => element.courseId === id);
+            if(!selected && this.credits + course.credit > this.maxCredits) return false;
+            else{
+                if(selected) this.credits -= course.credit;
+                else this.credits += course.credit;
+
+                this.updateCredits();
+
+                return true;
+            }
+        }
     }
 
     const getCourses = api;
@@ -105,9 +119,16 @@ const Controller = ((model, view) => {
         const availContainer = document.querySelector(view.domstr.availContainer);
         availContainer.addEventListener("click", (event) => {
             let eve = event.target;
-            let selectedId = eve.id.substring(7)
-            console.log(selectedId);
-            eve.classList.contains("selected") ? eve.classList.remove("selected") : eve.classList.add("selected");
+            let selectedId = +eve.id.substring(7)
+            let selected = eve.classList.contains("selected")
+
+            if(creditHandler.modifyCreditCount(selectedId, availableList, selected)){
+                selected ? eve.classList.remove("selected") : eve.classList.add("selected");
+            }
+            else{
+                //output error alert here
+            }
+            
         })
     }
 
