@@ -5,7 +5,9 @@ const View = (() => {
 
     const domstr = {
         availContainer: "#available-container",
-        availCourse: ".course-element"
+        selectedContainer: "#selected-container",
+        availCourse: ".course-element",
+        selectButton: "#course-submit"
     };
 
     const render = (ele, tmp) => {
@@ -32,7 +34,7 @@ const View = (() => {
 
     const updateCreditElm = (credits) => {
         return `Total Credits: ${credits}`
-    }
+    };
 
     return{
         domstr, render, createCourseElm, updateCreditElm
@@ -43,6 +45,7 @@ const View = (() => {
 const Model = ((api, view) => {
     class AvailableList {
         available = [];
+        selected = [];
         
         getAvailable(){
             return this.available;
@@ -60,6 +63,23 @@ const Model = ((api, view) => {
 
             const tmp = view.createCourseElm(this.available);
             view.render(availContainer, tmp);
+        }
+
+        moveSelected(){
+            const selectedContainer = document.querySelector(view.domstr.selectedContainer);
+
+            const notSelected = [];
+
+            for(let courseEle of document.getElementsByClassName("course-element")){
+                let selectedId = +courseEle.id.substring(7);
+                let course = this.available.find(element => element.courseId === selectedId);
+                if(courseEle.classList.contains("selected")) this.selected.push(course);
+                else notSelected.push(course);
+                }
+            const tmp = view.createCourseElm(this.selected);
+            view.render(selectedContainer, tmp);
+
+            this.setAvailable(notSelected);
         }
     }
 
@@ -126,15 +146,25 @@ const Controller = ((model, view) => {
                 selected ? eve.classList.remove("selected") : eve.classList.add("selected");
             }
             else{
-                //output error alert here
+                alert("You can only choose up to 18 credits in one semester.")
             }
             
-        })
+        });
+    }
+
+    const confirmCourses = () => {
+        const selectButton = document.querySelector(view.domstr.selectButton);
+        selectButton.addEventListener("click", (event) => {
+            if(confirm(`You have chosen ${creditHandler.getCredits()} credits for this semester. You cannot change once you submit. Do you want to confirm?`)){
+                availableList.moveSelected();
+            };
+        });
     }
 
     const bootstrap = () => {
         init();
         selectCourse();
+        confirmCourses();
     };
 
     return {
